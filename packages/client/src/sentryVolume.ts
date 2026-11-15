@@ -63,7 +63,7 @@ export function eventBudget(options: { repeatEventsPerDay?: number; eventsPerDay
       if (!ceilingNoticeLogged) {
         ceilingNoticeLogged = true;
         // Fixed local text only: no event data, and warn is not captured by
-        // Mike's error-only console bridge. Set the guard before logging.
+        // ECL AI's error-only console bridge. Set the guard before logging.
         console.warn("[sentry] Daily event limit reached; further reports are suppressed until the next reporting day.");
       }
       return false;

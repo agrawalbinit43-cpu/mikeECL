@@ -278,7 +278,7 @@ export function ChatView({
             notifyError(
                 new UserVisibleError(
                     status === "not-found"
-                        ? "Mike couldn't find that passage in this document. It may have changed since the answer was written."
+                        ? "ECL AI couldn't find that passage in this document. It may have changed since the answer was written."
                         : "Word couldn't scroll to that passage. Try finding it with Word's search.",
                     { kind: status === "not-found" ? "not_found" : "unknown" },
                 ),

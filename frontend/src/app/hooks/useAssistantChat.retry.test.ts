@@ -436,7 +436,7 @@ describe("useAssistantChat retry", () => {
 
         const toast = result.current.toasts[0];
         expect(toast?.message).toBe(
-            "Mike couldn't finish this answer. Try again.",
+            "ECL AI couldn't finish this answer. Try again.",
         );
         expect(retryAction(toast)).toBeDefined();
         expect(toast?.supportHref).toMatch(/^mailto:/);
@@ -613,7 +613,7 @@ describe("terminal transport ownership", () => {
         expect(result.current.toasts.length).toBeGreaterThan(0);
         expect(reportErrorMock).toHaveBeenCalledTimes(1);
     });
-    it.each([502, 503, 504])("reports an unowned proxy %i without a Mike error code", async (status) => {
+    it.each([502, 503, 504])("reports an unowned proxy %i without an ECL AI error code", async (status) => {
         fetchMock.mockReset();
         fetchMock.mockResolvedValueOnce(new Response("proxy failed", {
             status, headers: { "Content-Type": "text/html" },

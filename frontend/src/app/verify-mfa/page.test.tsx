@@ -66,7 +66,7 @@ vi.mock("@/app/components/shared/MfaLoginGate", () => ({
 }));
 
 vi.mock("@/app/components/site-logo", () => ({
-    SiteLogo: () => <div>Mike</div>,
+    SiteLogo: () => <div>ECL AI</div>,
 }));
 
 async function enterCode() {
@@ -113,7 +113,7 @@ describe("VerifyMfaPage", () => {
         await enterCode();
 
         expect(await screen.findByRole("alert")).toHaveTextContent(
-            "Mike couldn't reach the server. Check your connection and try again.",
+            "ECL AI couldn't reach the server. Check your connection and try again.",
         );
     });
 
@@ -128,6 +128,6 @@ describe("VerifyMfaPage", () => {
         );
         expect(
             screen.getByRole("link", { name: "Contact support" }),
-        ).toHaveAttribute("href", expect.stringContaining("will@mikeoss.com"));
+        ).toHaveAttribute("href", expect.stringContaining("ba@emergingcitieslawyers.com"));
     });
 });

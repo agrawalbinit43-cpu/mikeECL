@@ -232,7 +232,7 @@ export async function upsertProjectGrant(
             return {
                 ok: false,
                 kind: "validation",
-                detail: `${email} does not belong to a Mike user.`,
+                detail: `${email} does not belong to an ECL AI user.`,
             };
     } catch (error) {
         return {

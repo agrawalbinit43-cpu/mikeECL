@@ -20,7 +20,7 @@ export type {
 } from "@mike/contracts";
 
 /**
- * Mike API client — all browser requests use the same-origin `/api` gateway.
+ * ECL AI API client — all browser requests use the same-origin `/api` gateway.
  * Authentication is carried only by the backend-managed HttpOnly cookie.
  */
 

@@ -84,7 +84,7 @@ describe("network failures", () => {
         });
         expect(error).toBeInstanceOf(NetworkUnreachableError);
         expect(error.message).toBe(
-            "Mike couldn't reach the server at http://localhost:3001. Check your connection and that the server is running, then try again.",
+            "ECL AI couldn't reach the server at http://localhost:3001. Check your connection and that the server is running, then try again.",
         );
         const described = describeError(error, { action: "sign in" });
         expect(described.kind).toBe("network");
@@ -150,7 +150,7 @@ describe("add-in notify", () => {
         expect(details).toContain("Request ID: req-7");
 
         const opened = open.mock.calls[0]?.[0] as string;
-        expect(opened.startsWith("mailto:will@mikeoss.com?")).toBe(true);
+        expect(opened.startsWith("mailto:ba@emergingcitieslawyers.com?")).toBe(true);
         expect(opened).not.toContain("/support");
         const draft = decodeURIComponent(opened);
         expect(draft).toContain("Client: word-addin");
@@ -221,7 +221,7 @@ describe("an unreachable session check", () => {
 });
 
 // The add-in's webpack dev server (`npm start`, NODE_ENV=development) is a
-// contributor's machine, not an install: it must not report to the Mike
+// contributor's machine, not an install: it must not report to the ECL AI
 // project, and when a developer points it at a DSN of their own the events
 // say "development".
 describe("addinSentryOptions for development builds", () => {

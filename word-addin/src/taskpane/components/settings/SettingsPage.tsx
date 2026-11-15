@@ -30,7 +30,7 @@ export function SettingsPage({
     } catch (reason) {
       setError(
         reportFault(reason, {
-          fallback: "Mike couldn't save that setting. Try again.",
+          fallback: "ECL AI couldn't save that setting. Try again.",
           operation: "settings.keys",
         }).message,
       );
@@ -113,7 +113,7 @@ export function SettingsPage({
                 setError(
                   reportFault(reason, {
                     fallback:
-                      "Mike couldn't delete the device-only chats. Try again.",
+                      "ECL AI couldn't delete the device-only chats. Try again.",
                     operation: "settings.keys",
                   }).message,
                 ),

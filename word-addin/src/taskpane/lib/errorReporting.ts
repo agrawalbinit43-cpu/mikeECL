@@ -67,7 +67,7 @@ export function addinSentryOptions(
     maxRepeatEventsPerDay?: string;
   },
 ): Sentry.BrowserOptions {
-  // ON BY DEFAULT: the Mike project's own DSN unless REACT_APP_SENTRY_DISABLED
+  // ON BY DEFAULT: the ECL AI project's own DSN unless REACT_APP_SENTRY_DISABLED
   // or a DSN of your own is baked in at build time (README, "Telemetry").
   // webpack sets NODE_ENV from --mode: the dev server is "development",
   // `npm run build` (every image) is "production".
@@ -168,7 +168,7 @@ function officeDiagnostics():
 }
 
 /**
- * Office.onReady resolved with no host, so the pane shows the "open Mike in
+ * Office.onReady resolved with no host, so the pane shows the "open ECL AI in
  * Word" notice instead of the app. A plain browser tab (a crawler, a link
  * preview, a pasted URL) has no Office diagnostics either, and stays silent.
  * Diagnostics WITH a null host is a contradiction only a real Office client

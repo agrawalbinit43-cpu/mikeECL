@@ -401,7 +401,7 @@ export type ReportingDestination = {
  *   SENTRY_DSN                    the deployment's project (FRONTEND_SENTRY_DSN in compose)
  *   NEXT_PUBLIC_SENTRY_DSN        the project baked in at image build, for images
  *                                 built with a DSN and run without the runtime one
- *   otherwise                     the built-in Mike project (community default)
+ *   otherwise                     the built-in ECL AI project (community default)
  *
  * The result is printed at boot (sentry.server.config.ts) and answered by
  * GET /monitoring, so an operator can see which rule applied.
@@ -464,7 +464,7 @@ export function describeReportingDestination(destination: ReportingDestination):
         case "build":
             return `[sentry] web app reports → NEXT_PUBLIC_SENTRY_DSN project ${project} (baked at build; set SENTRY_DSN to change it at runtime), browser included`;
         default:
-            return "[sentry] web app reports → Mike project Sentry (community default), browser included. Opt out with SENTRY_DISABLED=true or point SENTRY_DSN at your own project.";
+            return "[sentry] web app reports → ECL AI project Sentry (community default), browser included. Opt out with SENTRY_DISABLED=true or point SENTRY_DSN at your own project.";
     }
 }
 

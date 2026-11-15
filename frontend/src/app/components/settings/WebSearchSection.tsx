@@ -31,7 +31,7 @@ const SEARCH_SERVICES: Record<
 > = {
   brave: {
     label: "Brave Search",
-    description: "Mike searches with Brave Search. Works with any model.",
+    description: "ECL AI searches with Brave Search. Works with any model.",
     keyLabel: "Brave Search API Key",
   },
   tavily: {
@@ -210,7 +210,7 @@ export function WebSearchSection() {
               <div className="min-w-0 space-y-1">
                 <SettingsLabel>Enable web search</SettingsLabel>
                 <SettingsDescription>
-                  Let Mike search the web and read pages when an answer needs
+                  Let ECL AI search the web and read pages when an answer needs
                   current or public information.
                 </SettingsDescription>
               </div>

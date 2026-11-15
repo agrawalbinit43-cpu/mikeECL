@@ -89,7 +89,7 @@ describe("AppToasts", () => {
         ).toHaveClass("liquid-glass-flat");
         expect(
             within(warning).getByRole("button", { name: "Retry" }),
-        ).toHaveClass("bg-gray-950/88");
+        ).toHaveClass("bg-ecl-maroon");
 
         // A warning stays until the user closes it.
         act(() => {

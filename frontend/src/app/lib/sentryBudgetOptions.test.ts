@@ -3,7 +3,7 @@ import { MIKE_SENTRY_DSN } from "@mike/client";
 import { serverSentryOptions } from "./errorReporting";
 import { addinSentryOptions } from "../../../../word-addin/src/taskpane/lib/errorReporting";
 
-it.each(["server", "edge", "addin"] as const)("%s caps an explicit Mike DSN but leaves custom projects independent", async runtime => {
+it.each(["server", "edge", "addin"] as const)("%s caps an explicit ECL AI DSN but leaves custom projects independent", async runtime => {
     for (const [dsn, count] of [[MIKE_SENTRY_DSN.frontend, 50], ["https://own@sentry.invalid/42", 60]] as const) {
         const options = runtime === "addin"
             ? addinSentryOptions("taskpane", { nodeEnv: "production", dsn })

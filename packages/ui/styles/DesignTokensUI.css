@@ -24,12 +24,34 @@
     --color-app-floating: var(--app-floating);
     --font-sans: var(--font-inter);
     --font-serif: var(--font-eb-garamond);
-    --color-blue: rgb(0, 136, 255);
-    --color-blue-50: rgba(0, 136, 255, 0.05);
-    --color-blue-100: rgba(0, 136, 255, 0.1);
-    --color-blue-200: rgba(0, 136, 255, 0.3);
-    --color-blue-600: rgb(0, 136, 255);
-    --color-blue-700: rgb(0, 120, 230);
+    /* ECL AI: the action colour is ECL maroon (#551c27) instead of blue.
+       The blue-* names stay so existing classes pick up the brand. */
+    --color-blue: var(--ecl-accent);
+    --color-blue-50: var(--ecl-accent-50);
+    --color-blue-100: var(--ecl-accent-100);
+    --color-blue-200: var(--ecl-accent-200);
+    --color-blue-600: var(--ecl-accent);
+    --color-blue-700: var(--ecl-accent-strong);
+    /* ECL brand colours, usable as classes (bg-ecl-maroon, text-ecl-gold). */
+    --color-ecl-maroon: #551c27;
+    --color-ecl-maroon-ink: #3f1521;
+    --color-ecl-ink: #2a1216;
+    --color-ecl-gold: #c9a24e;
+    --color-ecl-gold-deep: #7a5a1e;
+    --color-ecl-gold-light: #ead292;
+    --color-ecl-paper: #f8f2e7;
+    /* Warm greys in place of Tailwind's cool greys, to sit on ECL paper. */
+    --color-gray-50: #faf8f5;
+    --color-gray-100: #f4f0ea;
+    --color-gray-200: #e8e2d9;
+    --color-gray-300: #d6cfc5;
+    --color-gray-400: #a69d92;
+    --color-gray-500: #776e65;
+    --color-gray-600: #574f49;
+    --color-gray-700: #443d39;
+    --color-gray-800: #2c2522;
+    --color-gray-900: #1f1816;
+    --color-gray-950: #120c0b;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -67,40 +89,47 @@
 
 :root {
     --radius: 0.625rem;
-    --app-background: #f9fafb;
-    --app-surface: #fdfdfe;
-    --app-surface-hover: #f9fafb;
-    --app-surface-active: #eff0f3;
-    --app-floating: #fefefe;
-    --table-grid-border: #e5e7eb;
-    --background: oklch(0.985 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
+    /* ECL AI accent: maroon on light surfaces. */
+    --ecl-accent: #551c27;
+    --ecl-accent-strong: #3f1521;
+    --ecl-accent-50: rgba(85, 28, 39, 0.05);
+    --ecl-accent-100: rgba(85, 28, 39, 0.1);
+    --ecl-accent-200: rgba(85, 28, 39, 0.28);
+    /* ECL paper tones. */
+    --app-background: #faf6ef;
+    --app-surface: #fffdf9;
+    --app-surface-hover: #f7f1e7;
+    --app-surface-active: #efe6d8;
+    --app-floating: #fffefb;
+    --table-grid-border: #e8dfd1;
+    --background: #faf6ef;
+    --foreground: #2a1216;
+    --card: #fffdf9;
+    --card-foreground: #2a1216;
+    --popover: #fffefb;
+    --popover-foreground: #2a1216;
+    --primary: #551c27;
+    --primary-foreground: #f8f2e7;
+    --secondary: #f4ede2;
+    --secondary-foreground: #3f1521;
+    --muted: #f4ede2;
+    --muted-foreground: #776e65;
+    --accent: #f4ede2;
+    --accent-foreground: #3f1521;
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
+    --border: #e8dfd1;
+    --input: #e8dfd1;
+    --ring: #c9a24e;
+    --chart-1: #551c27;
+    --chart-2: #c9a24e;
+    --chart-3: #7a5a1e;
+    --chart-4: #a3525f;
+    --chart-5: #ead292;
+    --sidebar: #f6f0e6;
+    --sidebar-foreground: #2a1216;
+    --sidebar-primary: #551c27;
+    --sidebar-primary-foreground: #f8f2e7;
+    --sidebar-accent: #efe6d8;
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
@@ -108,6 +137,12 @@
 
 .dark {
     color-scheme: dark;
+    /* ECL AI accent on dark surfaces: a lighter maroon that stays readable. */
+    --ecl-accent: #c06a79;
+    --ecl-accent-strong: #d48593;
+    --ecl-accent-50: rgba(192, 106, 121, 0.08);
+    --ecl-accent-100: rgba(192, 106, 121, 0.14);
+    --ecl-accent-200: rgba(192, 106, 121, 0.32);
     --app-background: #0b0f14;
     --app-surface: #131922;
     --app-surface-hover: #19212c;
@@ -145,4 +180,10 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* ECL AI: the mark breathes while it works (see MikeIconUI.tsx). */
+@keyframes ecl-mark-breathe {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.92); }
 }

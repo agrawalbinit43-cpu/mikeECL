@@ -77,7 +77,7 @@ function ProfileDetailsForm({
         <OnboardingShell
             step="Step 1 of 4"
             title="Tell us about you"
-            description="Add the details we should use across Mike."
+            description="Add the details we should use across ECL AI."
         >
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>

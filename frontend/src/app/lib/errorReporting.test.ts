@@ -284,7 +284,7 @@ describe("setReportingUser", () => {
 });
 
 describe("browserSentryOptions", () => {
-    it("is ON BY DEFAULT with the Mike project DSN and never turns on PII or replay", () => {
+    it("is ON BY DEFAULT with the ECL AI project DSN and never turns on PII or replay", () => {
         const options = browserSentryOptions({ nodeEnv: "test" });
         expect(options.enabled).toBe(true);
         expect(options.dsn).toBe(MIKE_SENTRY_DSN.frontend);
@@ -346,13 +346,13 @@ describe("browserSentryOptions", () => {
     });
 });
 
-// MIKE-FRONTEND-2, 9, N, S: `next dev` checkouts reported to the Mike
+// MIKE-FRONTEND-2, 9, N, S: `next dev` checkouts reported to the ECL AI
 // project as environment=self-hosted, indistinguishable from installs.
 describe("development builds", () => {
     const own = "https://k@o9.ingest.sentry.io/9";
     const dev = (env: Record<string, string>) => ({ NODE_ENV: "development", ...env }) as unknown as NodeJS.ProcessEnv;
 
-    it("do not fall back to the Mike project; a DSN set on purpose still reports", () => {
+    it("do not fall back to the ECL AI project; a DSN set on purpose still reports", () => {
         expect(reportingDestination(dev({}))).toEqual({ dsn: "", source: "development" });
         // The shipped example .env.local sets these to false: not an opt-in.
         expect(reportingDestination(dev({ SENTRY_DISABLED: "false", NEXT_PUBLIC_SENTRY_DISABLED: "false" })).dsn).toBe("");

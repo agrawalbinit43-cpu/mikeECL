@@ -279,7 +279,7 @@ describe("leaving", () => {
     render(<OrganizationGeneralSettings />);
     const leave = screen.getByRole("button", { name: "Leave" });
     // Same pill as Delete beside it for an owner, set apart by tone.
-    expect(leave.className).toMatch(/bg-(black|gray-9\d\d)/);
+    expect(leave.className).toMatch(/bg-ecl-maroon/);
   });
 
   it("asks first, then removes the caller and takes them to their organizations", async () => {

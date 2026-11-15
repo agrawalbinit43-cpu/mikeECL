@@ -777,7 +777,7 @@ describe("GET /models/custom", () => {
         expect(JSON.stringify(blocked.body)).not.toContain("blocked network");
     });
 
-    // The user's endpoint or key is at fault and nothing in Mike can fix it,
+    // The user's endpoint or key is at fault and nothing in ECL AI can fix it,
     // so the 502 is logged but not filed (MIKE-BACKEND-DE).
     it.each([
         ["answers 401", () => guardedFetch.mockResolvedValueOnce(new Response("denied", { status: 401 }))],
@@ -815,7 +815,7 @@ describe("GET /models/custom", () => {
     });
 });
 
-describe("catalog loaders separate Mike's own failures from the provider's", () => {
+describe("catalog loaders separate ECL AI's own failures from the provider's", () => {
     const fetchMock = vi.fn();
     beforeEach(() => {
         vi.stubGlobal("fetch", fetchMock);

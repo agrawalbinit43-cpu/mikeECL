@@ -29,7 +29,7 @@ interface AddUserInputProps {
     inputEndControl?: ReactNode;
     className?: string;
     /**
-     * Refuse addresses that don't already belong to a Mike account.
+     * Refuse addresses that don't already belong to an ECL AI account.
      *
      * True is right where the address must resolve to a user immediately.
      * Organization invitations are the exceptional flow: they are intended
@@ -80,7 +80,7 @@ export function AddUserInput({
                 ? await lookupUserByEmail(email)
                 : { exists: false, email, display_name: null };
             if (requireExistingUser && !user.exists) {
-                setError(`${email} does not belong to a Mike user.`);
+                setError(`${email} does not belong to an ECL AI user.`);
                 return;
             }
 

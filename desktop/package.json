@@ -1,9 +1,9 @@
 {
   "name": "mike-desktop",
-  "productName": "Mike",
+  "productName": "ECL AI",
   "version": "0.1.0",
   "private": true,
-  "description": "Mike for Mac — desktop shell around the Mike web app",
+  "description": "ECL AI for Mac, built on the open-source Mike legal AI platform",
   "main": "src/main.js",
   "engines": {
     "node": ">=22.19.0"

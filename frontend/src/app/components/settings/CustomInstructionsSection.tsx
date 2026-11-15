@@ -97,7 +97,7 @@ export function CustomInstructionsSection() {
         ) : null}
       </div>
       <SettingsDescription>
-        Tell Mike how you would like it to respond in chats.
+        Tell ECL AI how you would like it to respond in chats.
       </SettingsDescription>
 
       {loading ? (

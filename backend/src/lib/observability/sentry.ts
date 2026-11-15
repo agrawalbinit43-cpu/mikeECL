@@ -4,7 +4,7 @@
 // Design rules, in priority order:
 //
 //   1. ON BY DEFAULT for community installs; SENTRY_DISABLED=true opts out.
-//      An explicit DSN overrides Mike's project. Test processes stay disabled
+//      An explicit DSN overrides ECL AI's project. Test processes stay disabled
 //      unless SENTRY_ALLOW_IN_TESTS=true is explicitly set.
 //   2. NEVER LEAK DOCUMENT CONTENT OR CREDENTIALS. This is a legal platform:
 //      request bodies carry privileged documents and chat transcripts, and
@@ -42,7 +42,7 @@ const CONSOLE_MECHANISM = "auto.core.capture_console";
  * The mechanism of the events Sentry's Vercel AI integration files itself.
  * It subscribes to the AI SDK's `ai:telemetry` diagnostics channel and calls
  * captureException(…, { handled: false }) for EVERY `tool-error` a tool step
- * produces (`captureToolError` in @sentry/server-utils). For Mike that is
+ * produces (`captureToolError` in @sentry/server-utils). For ECL AI that is
  * never a fresh report: a tool failure ends the turn and is reported once,
  * typed, by its owner (chat-stream's `reportError`, the job runner for the
  * memory curator), and the ask_inputs / approval pause is control flow that
@@ -313,7 +313,7 @@ export function redactShaped(value: unknown, depth = 0): unknown {
 }
 
 /**
- * The Mike project's own Sentry projects. A DSN is a write-only address:
+ * The ECL AI project's own Sentry projects. A DSN is a write-only address:
  * it lets an SDK post events and nothing else, so it is public by design
  * (it ships in every browser bundle). Community installs report here by
  * default so the project learns what forks run into; the opt-out and the
@@ -331,7 +331,7 @@ export const MIKE_SENTRY_DSN = {
 export type DsnResolution = {
   dsn: string;
   /**
-   * Where the DSN came from; "default" means the Mike project's Sentry and
+   * Where the DSN came from; "default" means the ECL AI project's Sentry and
    * "development" means off because this is a development build.
    */
   source: "disabled" | "env" | "default" | "development";
@@ -339,7 +339,7 @@ export type DsnResolution = {
 
 /**
  * Off if the runtime's *_SENTRY_DISABLED is "true"; the runtime's own DSN
- * when one is set (a self-hoster's own Sentry); otherwise the built-in Mike
+ * when one is set (a self-hoster's own Sentry); otherwise the built-in ECL AI
  * project DSN. Test processes are guarded separately by the caller.
  */
 export function resolveDsn(input: {
@@ -349,7 +349,7 @@ export function resolveDsn(input: {
   /**
    * A development build (`next dev`, `tsx watch`, the add-in's webpack dev
    * server): a contributor's laptop, not an install. It never falls back to
-   * the Mike project; only a DSN set on purpose (your own project, or the
+   * the ECL AI project; only a DSN set on purpose (your own project, or the
    * local sink in scripts/sentry-sink.mjs) turns it on.
    */
   development?: boolean;
@@ -477,7 +477,7 @@ function mapStringLeaves(
 }
 
 /**
- * COMMUNITY INSTALLS: a fork or self-hosted Mike reporting to the Mike
+ * COMMUNITY INSTALLS: a fork or self-hosted ECL AI reporting to the ECL AI
  * project's Sentry sends only what our own code owns and what is too broad
  * to identify anyone. Removed: the machine name, the user id, request
  * headers and host, every breadcrumb, device / app / locale contexts, local
@@ -662,7 +662,7 @@ export function backendBuildMode(
 /**
  * SENTRY_SOURCE_RUN_IS_INSTALL=true: a self-hoster who runs the backend from
  * its TypeScript source in production says "this source run is an install".
- * It then reports like the compiled image (Mike project by default,
+ * It then reports like the compiled image (ECL AI project by default,
  * environment self-hosted, build_mode production). Off unless exactly "true"
  * (any case), and absent from every example value, so a contributor's
  * checkout never turns it on by copying a file.
@@ -676,9 +676,9 @@ export function sentryConfiguration(
   sourceRun: boolean = isDevelopmentBuild(),
 ) {
   // ON BY DEFAULT for installs: without SENTRY_DISABLED or a DSN of your own,
-  // errors go to the Mike project's Sentry as a community install (see the
+  // errors go to the ECL AI project's Sentry as a community install (see the
   // README's Telemetry section). A development build stays off unless a DSN
-  // is set on purpose. Only Mike's own deployment sets SENTRY_INSTALL.
+  // is set on purpose. Only ECL AI's own deployment sets SENTRY_INSTALL.
   const development = sourceRun && !sourceRunIsInstall(env);
   const resolved = resolveDsn({
     disabled: env.SENTRY_DISABLED?.trim() || env.MIKE_BUILD_SENTRY_DISABLED,
@@ -961,7 +961,7 @@ export function initSentry(
   installProcessWarningReporter(env);
   if (config.dsnSource === "default") {
     console.log(
-      `[sentry] enabled for ${role} → Mike project Sentry (${config.install} install, ` +
+      `[sentry] enabled for ${role} → ECL AI project Sentry (${config.install} install, ` +
         `release ${config.release}). ` +
         "Opt out with SENTRY_DISABLED=true or point SENTRY_DSN at your own project.",
     );

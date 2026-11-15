@@ -202,10 +202,10 @@ function WorkspaceMemory({
                 <SettingsLabel>{memoryName}</SettingsLabel>
                 <SettingsDescription>
                   {organizationName
-                    ? `Let Mike curate useful details after your own conversations in ${organizationName} and use them in future answers there. Only you can see it.${multipleWorkspaces ? " You have a separate memory for each workspace." : ""}`
+                    ? `Let ECL AI curate useful details after your own conversations in ${organizationName} and use them in future answers there. Only you can see it.${multipleWorkspaces ? " You have a separate memory for each workspace." : ""}`
                     : multipleWorkspaces
-                      ? "Let Mike curate useful details after your saved conversations in Personal and use them in future answers there. You have a separate memory for each workspace."
-                      : "Let Mike curate useful details after your saved conversations and use them in future answers."}
+                      ? "Let ECL AI curate useful details after your saved conversations in Personal and use them in future answers there. You have a separate memory for each workspace."
+                      : "Let ECL AI curate useful details after your saved conversations and use them in future answers."}
                 </SettingsDescription>
               </div>
               <div className="flex items-center gap-3">

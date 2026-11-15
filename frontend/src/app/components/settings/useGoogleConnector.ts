@@ -169,7 +169,7 @@ export function useGoogleConnector(
     try {
       if (!popup)
         throw new GoogleConnectorFlowError(
-          "Allow popups for Mike, then try adding the connector again.",
+          "Allow popups for ECL AI, then try adding the connector again.",
         );
       const { authorizationUrl } = await api.start();
       pending = new URL(authorizationUrl).searchParams.get("state");

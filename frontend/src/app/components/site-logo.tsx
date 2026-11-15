@@ -18,7 +18,7 @@ export function SiteLogo({
 }: SiteLogoProps) {
     const landingHref =
         process.env.NODE_ENV === "production"
-            ? "https://mikeoss.com"
+            ? "https://emergingcitieslawyers.com"
             : "http://localhost:3000";
     const sizeClasses = {
         sm: "text-xl",
@@ -36,7 +36,7 @@ export function SiteLogo({
 
     const logo = (
         <h1
-            className={`flex items-center gap-1.5 ${sizeClasses[size]} font-light font-serif ${
+            className={`flex items-center gap-2 ${sizeClasses[size]} font-sans font-semibold tracking-tight ${
                 animate ? "sidebar-fade-in" : ""
             } ${className}`}
         >
@@ -45,7 +45,9 @@ export function SiteLogo({
             >
                 <MikeIcon size={iconSizes[size]} />
             </span>
-            <span>Mike</span>
+            <span>
+                ECL <span className="text-ecl-gold-deep dark:text-ecl-gold">AI</span>
+            </span>
         </h1>
     );
 

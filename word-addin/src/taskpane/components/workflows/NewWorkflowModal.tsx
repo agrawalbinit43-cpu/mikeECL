@@ -177,7 +177,7 @@ export function NewWorkflowModal({
     } catch (reason) {
       setError(
         reportFault(reason, {
-          fallback: "Mike couldn't create that workflow. Try again.",
+          fallback: "ECL AI couldn't create that workflow. Try again.",
           operation: "workflows.run",
         }).message
       );

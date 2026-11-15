@@ -138,7 +138,7 @@ export async function applyTrackedEditsToDocument(params: {
     .select("display_name, email")
     .eq("user_id", userId)
     .maybeSingle();
-  const author = profileAttributionName(authorProfile, "Mike");
+  const author = profileAttributionName(authorProfile, "ECL AI");
 
   const {
     bytes: editedBytes,

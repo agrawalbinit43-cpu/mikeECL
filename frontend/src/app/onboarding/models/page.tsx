@@ -105,7 +105,7 @@ function stepDescription(
     if (hasUsableProvider(keys, "env")) {
         return "This deployment already provides models, so you can finish now. A key you add here replaces the deployment's for your Personal workspace.";
     }
-    return "Add an API key for at least one provider to start using Mike in your Personal workspace. You can add or change keys later in Settings.";
+    return "Add an API key for at least one provider to start using ECL AI in your Personal workspace. You can add or change keys later in Settings.";
 }
 
 function ModelStep({ userId }: { userId: string }) {

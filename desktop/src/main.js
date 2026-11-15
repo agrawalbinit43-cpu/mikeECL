@@ -1,6 +1,6 @@
-// Mike for Mac — a native desktop shell around the Mike web app.
+// ECL AI for Mac — a native desktop shell around the ECL AI web app.
 //
-// Design decision (mirrors the Word add-in): Mike clients don't re-implement
+// Design decision (mirrors the Word add-in): ECL AI clients don't re-implement
 // the product UI — the web app IS the product, and this shell gives it a
 // first-class macOS home: real menu bar with shortcuts, window-state
 // persistence, external links opening in the default browser, a connection
@@ -50,7 +50,7 @@ const PROBE_TIMEOUT_MS = 5_000;
 // ---------------------------------------------------------------------------
 // Settings — a plain JSON file in userData. Deliberately no dependency: the
 // shell stores two things (server URL, window bounds) and a schema-less file
-// keeps the prototype inspectable (~/Library/Application Support/Mike/).
+// keeps the prototype inspectable (~/Library/Application Support/ECL AI/).
 // ---------------------------------------------------------------------------
 
 const settingsPath = () => path.join(app.getPath("userData"), "settings.json");
@@ -133,7 +133,7 @@ function openExternalOrCapture(url) {
 // ---------------------------------------------------------------------------
 // Navigation policy — who may show what, where.
 //
-// The main window hosts exactly one origin: the configured Mike server (plus
+// The main window hosts exactly one origin: the configured ECL AI server (plus
 // the shell's own bundled pages). Popups exist for one reason: the MCP
 // connector OAuth flow opens `about:blank` first to keep a synchronous window
 // handle, then steers it through third-party consent pages and back to an
@@ -523,7 +523,7 @@ async function serverReachable(url) {
 }
 
 // True first launch, in a build that can actually run locally: the user has
-// never chosen where Mike runs, so ask — "cloud or this Mac" is a decision a
+// never chosen where ECL AI runs, so ask — "cloud or this Mac" is a decision a
 // user shouldn't need to know a keyboard shortcut to make. Any explicit
 // signal (an override, --local, or a saved choice) skips the chooser, so
 // automation and returning users never see it. Builds without the local
@@ -768,7 +768,7 @@ function buildMenu() {
       role: "help",
       submenu: [
         {
-          label: "Mike on GitHub",
+          label: "ECL AI on GitHub",
           click: () =>
             openExternalOrCapture("https://github.com/Open-Legal-Products/mike"),
         },
@@ -784,11 +784,16 @@ function buildMenu() {
 
 // Test seam: relocate userData BEFORE the single-instance lock and any window
 // bounds are read/written. Without it an e2e run would fight the developer's
-// own running Mike.app for the instance lock (and lose, quitting instantly)
+// own running ECL AI.app for the instance lock (and lose, quitting instantly)
 // and would read/write their real window bounds. Must precede requestSingle-
 // InstanceLock — the lock lives in userData.
 if (process.env.MIKE_USER_DATA_DIR) {
   app.setPath("userData", process.env.MIKE_USER_DATA_DIR);
+} else {
+  // ECL AI keeps using the data folder the app had before its rename
+  // (~/Library/Application Support/Mike), so the local database, sign-in and
+  // settings carry over unchanged.
+  app.setPath("userData", path.join(app.getPath("appData"), "Mike"));
 }
 
 // One dock icon, one window; a second launch focuses the first instance.
@@ -839,6 +844,6 @@ if (!app.requestSingleInstanceLock()) {
 process.on("uncaughtException", (err) => {
   console.error("[mike-desktop] uncaught", err);
   if (app.isReady() && win === null) {
-    dialog.showErrorBox("Mike", String(err?.message ?? err));
+    dialog.showErrorBox("ECL AI", String(err?.message ?? err));
   }
 });

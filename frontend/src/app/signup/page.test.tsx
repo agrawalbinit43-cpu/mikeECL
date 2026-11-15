@@ -31,7 +31,7 @@ vi.mock("@/app/contexts/AuthContext", () => ({
 }));
 
 vi.mock("@/app/components/site-logo", () => ({
-    SiteLogo: () => <div>Mike</div>,
+    SiteLogo: () => <div>ECL AI</div>,
 }));
 
 describe("SignupPage", () => {
@@ -151,7 +151,7 @@ describe("SignupPage", () => {
         [
             "a dropped connection",
             new TypeError("Failed to fetch"),
-            "Mike couldn't reach the server. Check your connection and try again.",
+            "ECL AI couldn't reach the server. Check your connection and try again.",
         ],
         [
             "a password the server calls weak",

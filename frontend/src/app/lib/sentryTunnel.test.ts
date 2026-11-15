@@ -44,7 +44,7 @@ describe("tunnelDecision", () => {
         });
     });
 
-    it("forwards to the built-in Mike project otherwise, with runtime tags", () => {
+    it("forwards to the built-in ECL AI project otherwise, with runtime tags", () => {
         const decision = tunnelDecision({
             SENTRY_ENVIRONMENT: "production",
             SENTRY_INSTALL: "official",
@@ -207,7 +207,7 @@ it("applies the runtime destination's repeat policy in the tunnel", () => {
     expect(rewriteEnvelope(raw, { dsn: OWN_DSN }, own)!.byteLength).toBeGreaterThan(0);
 });
 
-it("caps explicitly configured Mike destinations after final envelope reconstruction", () => {
+it("caps explicitly configured ECL AI destinations after final envelope reconstruction", () => {
     for (const env of [
         { SENTRY_DSN: MIKE_SENTRY_DSN.frontend },
         { NEXT_PUBLIC_SENTRY_DSN: MIKE_SENTRY_DSN.backend },

@@ -148,7 +148,7 @@ export function WorkflowDetailsModal({
     } catch (reason) {
       setError(
         reportFault(reason, {
-          fallback: "Mike couldn't save this workflow. Try again.",
+          fallback: "ECL AI couldn't save this workflow. Try again.",
           operation: "workflows.run",
         }).message,
       );
@@ -169,7 +169,7 @@ export function WorkflowDetailsModal({
     } catch (reason) {
       setDeleteError(
         reportFault(reason, {
-          fallback: "Mike couldn't delete this workflow. Try again.",
+          fallback: "ECL AI couldn't delete this workflow. Try again.",
           operation: "workflows.run",
         }).message,
       );

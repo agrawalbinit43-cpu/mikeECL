@@ -216,7 +216,7 @@ describe("providerFailureKind", () => {
 });
 
 describe("providerFailureLevel", () => {
-  // MIK-89: nothing in Mike can fix a user's exhausted quota or a provider
+  // MIK-89: nothing in ECL AI can fix a user's exhausted quota or a provider
   // outage, so those are warnings; the account's own state (a rejected key,
   // no credit) is not reported at all; an unexplained failure stays an error.
   it.each([

@@ -65,7 +65,7 @@ export function DocumentActions({
         if (cancelled) return;
         setWorkflowsError(
           reportFault(reason, {
-            fallback: "Mike couldn't load your quick actions. Try again.",
+            fallback: "ECL AI couldn't load your quick actions. Try again.",
             operation: "quick_actions.run",
           }).message,
         );

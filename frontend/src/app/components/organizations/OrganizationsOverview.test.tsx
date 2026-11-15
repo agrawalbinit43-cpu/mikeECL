@@ -211,7 +211,7 @@ describe("OrganizationsOverview", () => {
       const switchButton = screen.getByRole("button", {
         name: "Switch to Beta Chambers",
       });
-      expect(switchButton.className).toMatch(/bg-gray-950/);
+      expect(switchButton.className).toMatch(/bg-ecl-maroon/);
       await user.click(switchButton);
 
       expect(mocks.setWorkspace).toHaveBeenCalledExactlyOnceWith("org-2");

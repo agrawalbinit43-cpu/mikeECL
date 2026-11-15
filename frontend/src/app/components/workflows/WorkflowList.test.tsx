@@ -206,7 +206,7 @@ describe("WorkflowList pack toolbar", () => {
     render(<WorkflowList initialTab="addons" />);
 
     const rowImport = await screen.findByRole("button", { name: "Import" });
-    expect(rowImport).not.toHaveClass("bg-gray-950/88");
+    expect(rowImport).not.toHaveClass("bg-ecl-maroon");
     expect(rowImport).toHaveTextContent("");
     expect(rowImport.querySelector("svg")).not.toBeNull();
 
@@ -223,7 +223,7 @@ describe("WorkflowList pack toolbar", () => {
     ).toHaveLength(1);
     expect(
       importButtons.filter((button) =>
-        button.classList.contains("bg-gray-950/88"),
+        button.classList.contains("bg-ecl-maroon"),
       ),
     ).toHaveLength(0);
   });

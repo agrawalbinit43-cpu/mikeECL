@@ -33,7 +33,7 @@ describe("ConfirmPopup", () => {
     );
 
     expect(screen.getByRole("button", { name: "Delete" })).toHaveClass(
-      "bg-gray-950/88",
+      "bg-ecl-maroon",
     );
   });
 

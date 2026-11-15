@@ -10,7 +10,7 @@ import { restoreDomExceptionType, retainExceptionTypes, diagnosticErrorTags } fr
  *
  * Two jobs:
  *
- *  1. SCRUB. Mike handles privileged legal documents. An event may carry a
+ *  1. SCRUB. ECL AI handles privileged legal documents. An event may carry a
  *     user id and a route; it must never carry a request body, a cookie, an
  *     auth header, or anything under a key that looks like a secret.
  *  2. DEDUPE. Every remaining `console.error` is bridged into Sentry so no
@@ -251,7 +251,7 @@ export function redactShaped(value: unknown, depth = 0): unknown {
 }
 
 /**
-  * The Mike project's own Sentry projects. A DSN is a write-only address:
+  * The ECL AI project's own Sentry projects. A DSN is a write-only address:
   * it lets an SDK post events and nothing else, so it is public by design
   * (it ships in every browser bundle). Community installs report here by
   * default so the project learns what forks run into; the opt-out and the
@@ -269,7 +269,7 @@ export const MIKE_SENTRY_DSN = {
 export type DsnResolution = {
     dsn: string;
     /**
-     * Where the DSN came from; "default" means the Mike project's Sentry and
+     * Where the DSN came from; "default" means the ECL AI project's Sentry and
      * "development" means off because this is a development build.
      */
     source: "disabled" | "env" | "default" | "development";
@@ -277,7 +277,7 @@ export type DsnResolution = {
 
 /**
   * Off if the runtime's *_SENTRY_DISABLED is "true"; the runtime's own DSN
-  * when one is set (a self-hoster's own Sentry); otherwise the built-in Mike
+  * when one is set (a self-hoster's own Sentry); otherwise the built-in ECL AI
   * project DSN. Test processes are guarded separately by the caller.
   */
 export function resolveDsn(input: {
@@ -287,7 +287,7 @@ export function resolveDsn(input: {
     /**
      * A development build (`next dev`, `tsx watch`, the add-in's webpack dev
      * server): a contributor's laptop, not an install. It never falls back to
-     * the Mike project; only a DSN set on purpose (your own project, or the
+     * the ECL AI project; only a DSN set on purpose (your own project, or the
      * local sink in scripts/sentry-sink.mjs) turns it on.
      */
     development?: boolean;
@@ -415,7 +415,7 @@ function mapStringLeaves(
 }
 
 /**
-  * COMMUNITY INSTALLS: a fork or self-hosted Mike reporting to the Mike
+  * COMMUNITY INSTALLS: a fork or self-hosted ECL AI reporting to the ECL AI
   * project's Sentry sends only what our own code owns and what is too broad
   * to identify anyone. Removed: the machine name, the user id, request
   * headers and host, every breadcrumb, device / app / locale contexts, local

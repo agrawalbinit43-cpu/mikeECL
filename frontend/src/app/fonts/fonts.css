@@ -179,6 +179,45 @@
 
 /* The variables the app and the Word add-in tokens read (globals.css). */
 :root {
-    --font-inter: "Inter", "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
-    --font-eb-garamond: "EB Garamond", "EB Garamond Fallback", Georgia, serif;
+    --font-inter: "Archivo", "Inter", "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
+    --font-eb-garamond: "Libre Caslon Text", "EB Garamond", "EB Garamond Fallback", Georgia, serif;
+}
+
+/*
+ * ECL AI brand faces (Emerging Cities Lawyers): Archivo for the interface and
+ * Libre Caslon Text for headings, latin subset. Other scripts fall back to
+ * Inter and EB Garamond above. Licence: SIL OFL 1.1 (Archivo-OFL.txt,
+ * LibreCaslonText-OFL.txt).
+ */
+@font-face {
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("./archivo-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: "Libre Caslon Text";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("./libre-caslon-text-400-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: "Libre Caslon Text";
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url("./libre-caslon-text-400i-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: "Libre Caslon Text";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("./libre-caslon-text-700-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }

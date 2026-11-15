@@ -35,7 +35,7 @@ async function main(): Promise<void> {
   }
   await enforceDocumentLifecycleMigration();
   startAllWorkers();
-  console.log("Mike worker process running");
+  console.log("ECL AI worker process running");
 }
 
 void main();

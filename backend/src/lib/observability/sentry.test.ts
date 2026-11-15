@@ -110,7 +110,7 @@ describe("sentryConfiguration", () => {
     expect(config.dsn).toBe(expectedDsn);
   });
 
-  it("is ON BY DEFAULT: the Mike project DSN, a community install, environment self-hosted", () => {
+  it("is ON BY DEFAULT: the ECL AI project DSN, a community install, environment self-hosted", () => {
     const config = sentryConfiguration({ NODE_ENV: "production" } as NodeJS.ProcessEnv);
     expect(config.enabled).toBe(true);
     expect(config.dsn).toBe(MIKE_SENTRY_DSN.backend);
@@ -914,7 +914,7 @@ describe("Node process warnings", () => {
     expect(consoleEvent(printed)).toBeNull();
     expect(consoleEvent("(node:1) ExperimentalWarning: SQLite is an experimental feature")).toBeNull();
     expect(consoleEvent("[dbq] tick failed")).not.toBeNull();
-    expect(consoleEvent("Mike workflow sync failed")).not.toBeNull();
+    expect(consoleEvent("ECL AI workflow sync failed")).not.toBeNull();
   });
 
   it("stays silent when the operator set NODE_NO_WARNINGS=1", () => {
@@ -1041,7 +1041,7 @@ describe("community install minimisation", () => {
 });
 
 // MIKE-BACKEND-B, 8, C, 1V, 1M: culprits under backend/src/... are `tsx
-// watch` checkouts reporting to the Mike project as environment=self-hosted.
+// watch` checkouts reporting to the ECL AI project as environment=self-hosted.
 describe("development builds", () => {
   it("are the TypeScript source, not the compiled image", () => {
     expect(isDevelopmentBuild(["node", "/home/dev/mike/backend/src/index.ts"])).toBe(true);
@@ -1049,7 +1049,7 @@ describe("development builds", () => {
     expect(isDevelopmentBuild(["node", "/app/dist/jobs/syncWorkflows.js"])).toBe(false);
   });
 
-  it("do not fall back to the Mike project, even with the example's SENTRY_DISABLED=false", () => {
+  it("do not fall back to the ECL AI project, even with the example's SENTRY_DISABLED=false", () => {
     const config = sentryConfiguration({ NODE_ENV: "development", SENTRY_DISABLED: "false" } as NodeJS.ProcessEnv, true);
     expect(config).toMatchObject({ enabled: false, dsn: "", dsnSource: "development" });
     // The compiled image under compose's NODE_ENV=development is an install.

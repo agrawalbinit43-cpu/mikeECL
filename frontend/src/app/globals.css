@@ -31,7 +31,7 @@
 }
 
 .dark .table-surface .table-sticky-cell.bg-blue-50 {
-    background-color: rgba(3, 73, 130, 0.3);
+    background-color: rgba(192, 106, 121, 0.16);
 }
 
 .table-surface
@@ -44,7 +44,7 @@
     border: 1px solid var(--table-grid-border);
 }
 
-/* Most of Mike predates semantic color tokens and uses Tailwind's neutral
+/* Most of ECL AI predates semantic color tokens and uses Tailwind's neutral
    palette directly. These mappings make those existing surfaces participate
    in the user-selected dark theme without requiring page-by-page forks. */
 .dark .bg-white,
@@ -150,7 +150,7 @@
 .dark .text-green-800,
 .dark .text-emerald-700 { color: #6ee7b7; }
 .dark .bg-blue-50,
-.dark .bg-blue-100 { background-color: rgba(3, 73, 130, 0.3); }
+.dark .bg-blue-100 { background-color: rgba(192, 106, 121, 0.16); }
 
 @layer base {
     * {

@@ -26,12 +26,12 @@ describe("ToastUI", () => {
             showToast({
                 tone: "error",
                 title: "Couldn't save the document",
-                message: "Mike couldn't reach the server.",
+                message: "ECL AI couldn't reach the server.",
             });
         });
         const alert = screen.getByRole("alert");
         expect(alert).toHaveTextContent("Couldn't save the document");
-        expect(alert).toHaveTextContent("Mike couldn't reach the server.");
+        expect(alert).toHaveTextContent("ECL AI couldn't reach the server.");
         expect(alert).toHaveClass("liquid-glass-float");
 
         fireEvent.click(
@@ -61,11 +61,11 @@ describe("ToastUI", () => {
             showToast({
                 tone: "error",
                 message: "Failed",
-                supportHref: "mailto:will@mikeoss.com?subject=x",
+                supportHref: "mailto:ba@emergingcitieslawyers.com?subject=x",
             });
         });
         const link = screen.getByRole("link", { name: "Contact support" });
-        expect(link).toHaveAttribute("href", "mailto:will@mikeoss.com?subject=x");
+        expect(link).toHaveAttribute("href", "mailto:ba@emergingcitieslawyers.com?subject=x");
     });
 
     it("keeps an error with actions until dismissed but auto-dismisses success", () => {
@@ -276,7 +276,7 @@ describe("ToastUI", () => {
                 const node =
                     screen.queryByRole("link", { name }) ??
                     screen.getByRole("button", { name });
-                if (node.className.includes("bg-gray-950/88")) return "black";
+                if (node.className.includes("bg-ecl-maroon")) return "black";
                 if (node.className.includes("liquid-glass-flat")) return "white";
                 return "text";
             });
