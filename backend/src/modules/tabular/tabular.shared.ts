@@ -121,6 +121,7 @@ function providerLabel(provider: Provider): string {
     if (provider === "xai") return "xAI";
     if (provider === "custom") return "OpenAI-compatible endpoint";
     if (provider === "ollama") return "Local (Ollama)";
+    if (provider === "claude-code") return "Claude subscription";
     if (provider === "openai-compatible") return "Configured endpoint";
     return "Gemini";
 }
@@ -136,7 +137,7 @@ export function missingModelApiKey(
     apiKeys: UserApiKeys,
 ): MissingApiKey | null {
     const provider = providerForModel(model);
-    if (provider === "ollama") return null; // local, no key
+    if (provider === "ollama" || provider === "claude-code") return null; // local, no key
     if (provider === "openai-compatible") {
         const configured = getConfiguredModel(model);
         if (!configured) return null;

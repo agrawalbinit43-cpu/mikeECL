@@ -6,6 +6,7 @@
 // an upstream catalog failure is a 502 whose raw body never reaches the
 // client.
 
+import { claudeCodeStatus, listClaudeCodeModels } from "../../lib/llm/claudeCode";
 import { Router, type Request, type Response } from "express";
 import { requireAuth } from "../../middleware/auth";
 import { asyncRoute, routerErrorHandler } from "../../middleware/asyncRoute";
@@ -89,6 +90,16 @@ async function sendCatalog(
         sendInternalError(res, error);
     }
 }
+
+// GET /models/claude-code
+// Whether the owner's Claude subscription (through the local Claude Code app)
+// can be used, and the models it offers. Never returns a credential.
+modelsRouter.get("/claude-code", requireAuth, asyncRoute(async (_req, res) => {
+    res.json({
+        status: claudeCodeStatus(),
+        models: listClaudeCodeModels(),
+    });
+}));
 
 // GET /models/ollama
 modelsRouter.get("/ollama", requireAuth, asyncRoute(async (_req, res) => {

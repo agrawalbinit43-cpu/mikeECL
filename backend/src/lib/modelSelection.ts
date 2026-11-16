@@ -97,7 +97,7 @@ export function hasApiKeyForModel(
 ): boolean {
     const provider = providerForModel(model);
     if (apiKeys.disabledProviders?.includes(provider)) return false;
-    if (provider === "ollama") return true;
+    if (provider === "ollama" || provider === "claude-code") return true;
     if (provider === "openai-compatible") {
         const configured = getConfiguredModel(model);
         return (
@@ -263,6 +263,7 @@ export function titleModelForChat(
         case "xai":
         case "custom":
         case "ollama":
+        case "claude-code":
         case "openai-compatible":
             return resolvedChatModel;
     }

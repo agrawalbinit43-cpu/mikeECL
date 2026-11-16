@@ -25,6 +25,7 @@ import {
   type ProviderKeySource,
 } from "./providerErrors";
 import { createRawLlmStreamRecorder, logRawLlmStream } from "./rawStreamLog";
+import { bridgeTools } from "./claudeCode";
 
 installProviderWarningLogger();
 
@@ -260,6 +261,14 @@ export type AiSdkAdapterConfig = {
   supportsReasoning?: boolean;
   /** OpenAI's CourtListener tools require an extra instruction after use. */
   courtlistenerCitationReminder?: boolean;
+  /**
+   * Claude subscription only: the CLI runs the tool loop itself, so the model
+   * is built per call with ECL AI's tools bridged in as an in-process server.
+   */
+  buildClaudeCodeModel?: (
+    tools: Awaited<ReturnType<typeof bridgeTools>>,
+    maxTurns: number,
+  ) => Promise<Exclude<LanguageModel, string>>;
   /** The provider's own web search tool. */
   webSearchTool?: (options: { maxUses: number }) => ToolSet[string];
   /** Send stored reasoning on earlier assistant turns; see ConfiguredModel. */
@@ -543,9 +552,33 @@ export async function streamAiSdk(
           }),
         }
       : null;
-  const tools = webSearch
-    ? { ...functionTools, [PROVIDER_WEB_SEARCH_TOOL]: webSearch.tool }
-    : functionTools;
+  // Claude subscription: the CLI owns the loop, so ECL AI's tools are bridged
+  // into it and the call itself carries none.
+  let callModel = config.model;
+  const claudeCodeBridge = config.buildClaudeCodeModel !== undefined;
+  if (config.buildClaudeCodeModel) {
+    const local = (functionTools ?? {}) as Record<
+      string,
+      { execute?: (input: unknown, options: unknown) => unknown }
+    >;
+    const bridged = Object.keys(local).length
+      ? await bridgeTools(
+          params.tools ?? [],
+          async (name, input, id) =>
+            String(await local[name]?.execute?.(input, { toolCallId: id, messages: [] })),
+          sdk,
+        )
+      : undefined;
+    callModel = await config.buildClaudeCodeModel(
+      bridged ?? {},
+      params.maxIterations ?? DEFAULT_MAX_ITERATIONS,
+    );
+  }
+  const tools = claudeCodeBridge
+    ? undefined
+    : webSearch
+      ? { ...functionTools, [PROVIDER_WEB_SEARCH_TOOL]: webSearch.tool }
+      : functionTools;
   const emitWebSearch = (event: ProviderWebSearchEvent) =>
     params.callbacks?.onWebSearch?.(event);
   // An exception that merely LOOKS like an abort (name "AbortError" or
@@ -592,7 +625,7 @@ export async function streamAiSdk(
   try {
     const result = sdk.streamText({
       model: sdk.wrapLanguageModel({
-        model: config.model,
+        model: callModel,
         middleware: [providerDeadlines(params.callbacks?.onActivity), quotaRefusalRetries()],
       }),
       system: params.systemPrompt,
@@ -691,6 +724,18 @@ export async function streamAiSdk(
           }
           break;
         case "tool-call": {
+          if (part.providerExecuted && claudeCodeBridge) {
+            // A bridged ECL AI tool: show it in the timeline like any other.
+            const prefix = "mcp__ecl__";
+            if (part.toolName.startsWith(prefix)) {
+              params.callbacks?.onToolCallStart?.({
+                id: part.toolCallId,
+                name: part.toolName.slice(prefix.length),
+                input: normalizeToolInput(part.input),
+              });
+            }
+            break;
+          }
           if (part.providerExecuted) {
             if (part.toolName === PROVIDER_WEB_SEARCH_TOOL) {
               emitWebSearch({

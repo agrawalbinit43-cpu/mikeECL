@@ -434,6 +434,7 @@ const PROVIDER_DISPLAY_NAMES: Record<Provider, string> = {
   custom: "OpenAI-compatible endpoint",
   "openai-compatible": "Configured endpoint",
   ollama: "Local (Ollama)",
+  "claude-code": "Claude subscription",
 };
 
 // Keyed rather than positional: a provider added later must not inherit the

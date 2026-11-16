@@ -1169,7 +1169,14 @@ export type ApiKeyStatus = Record<ApiKeyProvider, boolean> & {
 export interface OllamaModelOption {
     id: string;
     label: string;
-    group: "Local";
+    group: "Local" | "Claude subscription";
+}
+
+export interface ClaudeSubscriptionStatus {
+    installed: boolean;
+    signedIn: boolean;
+    account?: string;
+    detail: string;
 }
 
 export interface ConfiguredModelOption {
@@ -1191,11 +1198,22 @@ export interface RouterCatalogModel {
     };
 }
 
+export async function getClaudeSubscription(): Promise<{
+    status: ClaudeSubscriptionStatus;
+    models: OllamaModelOption[];
+}> {
+    return apiRequest("settings.keys", "/models/claude-code");
+}
+
 export async function getOllamaModels(): Promise<OllamaModelOption[]> {
-    const { models } = await apiRequest<{ models: OllamaModelOption[] }>(
-        "settings.keys", "/models/ollama",
-    );
-    return models;
+    // Keyless models: the owner's Claude subscription first, then any local ones.
+    const [claude, local] = await Promise.all([
+        getClaudeSubscription().catch(() => ({ models: [] as OllamaModelOption[] })),
+        apiRequest<{ models: OllamaModelOption[] }>(
+            "settings.keys", "/models/ollama",
+        ).catch(() => ({ models: [] as OllamaModelOption[] })),
+    ]);
+    return [...claude.models, ...local.models];
 }
 
 export async function getConfiguredModels(): Promise<ConfiguredModelOption[]> {

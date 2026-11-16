@@ -198,6 +198,7 @@ export function isAllowedModelId(
     ALLOWED_MODEL_IDS.has(id) ||
     configuredModelIds.includes(id) ||
     id.startsWith("ollama/") ||
+    id.startsWith("claude-code/") ||
     routerForModelId(id) !== null
   );
 }
@@ -216,7 +217,7 @@ const MODEL_NAME_ACRONYMS: Record<string, string> = {
 export function modelDisplayName(modelId: string): string {
   const normalized = modelId
     .replace(
-      /^(?:openrouter|vercel|opencode-go|bedrock|azure-foundry|azure|vertex|xai|custom|ollama)\//,
+      /^(?:openrouter|vercel|opencode-go|bedrock|azure-foundry|azure|vertex|xai|custom|ollama|claude-code)\//,
       "",
     )
     .split("/")
@@ -421,7 +422,8 @@ export type ModelProvider =
   | "openai"
   | "mistral"
   | RouterSlug
-  | "ollama";
+  | "ollama"
+  | "claude-code";
 
 /** Key providers that serve chat models (CourtListener does not). */
 const MODEL_KEY_PROVIDERS = [
@@ -458,12 +460,14 @@ export function modelGroupToProvider(group: ModelOption["group"]): ModelProvider
   if (group === "Vercel AI Gateway") return "vercel";
   if (group === "OpenCode Go") return "opencode-go";
   if (group === "Local") return "ollama";
+  if (group === "Claude subscription") return "claude-code";
   return "gemini";
 }
 
 /** The key provider that serves a model id, or null for an unknown id. */
 export function getModelProvider(modelId: string): ModelProvider | null {
   if (modelId.startsWith("ollama/")) return "ollama"; // dynamic, not in the static list
+  if (modelId.startsWith("claude-code/")) return "claude-code"; // the owner's Claude login
   const router = routerForModelId(modelId);
   if (router) return router;
   const model = SETTINGS_MODELS.find(
@@ -477,7 +481,7 @@ export function isProviderAvailable(
   provider: ModelProvider,
   keys: ProviderKeyStates,
 ): boolean {
-  if (provider === "ollama") return true; // local, no key needed
+  if (provider === "ollama" || provider === "claude-code") return true; // no key needed
   return !!keys[provider]?.configured && keys[provider]?.enabled !== false;
 }
 
@@ -509,6 +513,7 @@ const PROVIDER_NAMES: Record<
   xai: { name: "xAI" },
   custom: { name: "OpenAI-compatible endpoint" },
   ollama: { name: "Local", product: "Ollama" },
+  "claude-code": { name: "Claude subscription", product: "Claude" },
 };
 
 /**

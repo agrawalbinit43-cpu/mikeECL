@@ -1,5 +1,6 @@
 "use client";
 
+import { useOllamaModels } from "@/app/hooks/useOllamaModels";
 import {
     useState,
     useCallback,
@@ -221,6 +222,11 @@ function ChatInputForChatImpl(
     // the stored selection alone for.
     // In an organization workspace these are the lists that govern its keys.
     const savedRouterSelections = useModelRouterSelections();
+    // With no saved choice, ECL AI runs on the owner's Claude subscription.
+    const subscriptionModels = useOllamaModels();
+    const claudeSubscriptionDefault =
+        subscriptionModels.find((m) => m.id === "claude-code/sonnet")?.id ??
+        null;
     const [model, setModel] = useSelectedModel({
         selectionKey: chatKey,
         chatModel,
@@ -231,6 +237,7 @@ function ChatInputForChatImpl(
                 : null,
         apiKeys,
         configuredModelIds,
+        fallbackModelId: claudeSubscriptionDefault,
     });
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const controlsRef = useRef<HTMLDivElement>(null);

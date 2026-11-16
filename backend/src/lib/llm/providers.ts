@@ -15,6 +15,7 @@ import {
   vertexCredentials,
 } from "./cloudProviders";
 import { guardedFetch } from "../mcp/client";
+import { createClaudeCodeModel } from "./claudeCode";
 import { isBlockedDestinationError } from "../blockedDestination";
 import { localModelToleranceMiddleware } from "./localModelMiddleware";
 import { ProviderConfigurationError, providerFailureResponse, type ProviderKeySource } from "./providerErrors";
@@ -692,6 +693,21 @@ async function createProviderAdapter(
       model: mistral(model),
       modelId: model,
       keySource: keySourceFor(apiKeys, "mistral"),
+    };
+  }
+
+  if (provider === "claude-code") {
+    // The owner's own Claude subscription, through the local Claude Code app.
+    // No key; see claudeCode.ts for the confidentiality guard.
+    return {
+      provider,
+      label: "Claude subscription",
+      model: await createClaudeCodeModel({ model, maxTurns: 1 }),
+      modelId: model,
+      keySource: "deployment",
+      supportsReasoning: false,
+      buildClaudeCodeModel: (tools, maxTurns) =>
+        createClaudeCodeModel({ model, tools, maxTurns }),
     };
   }
 

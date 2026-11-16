@@ -169,6 +169,7 @@ export function providerForModel(model: string): Provider {
     const configured = getConfiguredModel(model);
     if (configured) return configured.provider;
     if (model.startsWith("ollama")) return "ollama";
+    if (model.startsWith("claude-code/")) return "claude-code";
     if (model.startsWith("openrouter/")) return "openrouter";
     if (model.startsWith("vercel/")) return "vercel";
     if (model.startsWith("opencode-go/")) return "opencode-go";
@@ -326,6 +327,7 @@ export function resolveModel(
         (ALL_MODELS.has(canonical) ||
             getConfiguredModel(canonical) !== null ||
             canonical.startsWith("ollama/") ||
+            canonical.startsWith("claude-code/") ||
             /^(?:openrouter|vercel)\/[^\s/]+\/[^\s]+$/.test(canonical) ||
             // OpenCode Go's catalog ids are single-segment ("glm-5"), not the
             // vendor/model pairs OpenRouter and Vercel publish.

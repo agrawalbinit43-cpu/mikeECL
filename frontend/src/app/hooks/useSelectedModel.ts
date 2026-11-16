@@ -25,6 +25,8 @@ export interface SelectedModelSources {
     apiKeys?: ApiKeyState;
     /** Authenticated deployment models returned by GET /models/configured. */
     configuredModelIds?: readonly string[];
+    /** Used only when nothing was ever chosen, e.g. the signed-in Claude subscription. */
+    fallbackModelId?: string | null;
 }
 
 function usableStoredModel(
@@ -67,8 +69,10 @@ export function useSelectedModel(
             routerSelections: sources.routerSelections ?? null,
             apiKeys: sources.apiKeys,
             configuredModelIds,
+            fallbackModelId: sources.fallbackModelId,
         }),
         [
+            sources.fallbackModelId,
             sources.selectionKey,
             sources.chatModel,
             sources.lastSelectedModel,
@@ -100,6 +104,7 @@ export function useSelectedModel(
                 selectionSources.lastSelectedModel,
                 selectionSources,
             ) ??
+            selectionSources.fallbackModelId ??
             "";
         setModelState(next);
     }, [selectionSources]);

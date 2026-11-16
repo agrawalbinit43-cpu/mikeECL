@@ -87,13 +87,16 @@ export function ModelToggle({
     ...allRouterModelOptions(routerSelections),
     ...ollamaModels.map((model) => ({
       ...model,
-      label: modelDisplayName(model.id),
+      label:
+        model.group === "Claude subscription"
+          ? model.label
+          : modelDisplayName(model.id),
       source: "Local",
     })),
   ]);
   const availableModels = models.filter((model) => {
     if (model.source === "Configured") return true;
-    if (model.group === "Local") return true;
+    if (model.group === "Local" || model.group === "Claude subscription") return true;
     if (apiKeysLoading) return false; // nothing offered until known
     if (!apiKeys) return true; // unknown after a failed load → fail open
     return isModelAvailable(model.id, apiKeys);

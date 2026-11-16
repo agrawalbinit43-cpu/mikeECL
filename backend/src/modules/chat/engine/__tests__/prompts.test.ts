@@ -6,7 +6,7 @@ describe("buildSystemPrompt", () => {
     it("always contains the core identity and rules", () => {
         for (const prompt of [buildSystemPrompt(true), buildSystemPrompt(false)]) {
             expect(prompt).toContain(
-                "You are ECL AI, an AI legal assistant for lawyers and legal professionals.",
+                "You are ECL AI, the AI legal and advisory assistant of Emerging Cities Lawyers",
             );
             expect(prompt).toContain("Do not fabricate document content.");
             expect(prompt).toContain(

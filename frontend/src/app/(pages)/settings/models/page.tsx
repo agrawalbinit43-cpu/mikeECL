@@ -254,7 +254,7 @@ function ModelPreferenceDropdown({
   const [isOpen, setIsOpen] = useState(false);
   const availableOptions = options.filter((model) => {
     if (model.source === "Configured") return true;
-    if (model.group === "Local") return true;
+    if (model.group === "Local" || model.group === "Claude subscription") return true;
     return apiKeys ? isModelAvailable(model.id, apiKeys) : false;
   });
   const selected = availableOptions.find((model) => model.id === value);

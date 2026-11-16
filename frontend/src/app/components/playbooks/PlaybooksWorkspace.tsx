@@ -214,7 +214,10 @@ function PlaybooksWorkspace() {
       ...SETTINGS_MODELS,
       ...ollamaModels.map((model) => ({
         ...model,
-        label: modelDisplayName(model.id),
+        label:
+          model.group === "Claude subscription"
+            ? model.label
+            : modelDisplayName(model.id),
         source: "Local",
       })),
     ],
