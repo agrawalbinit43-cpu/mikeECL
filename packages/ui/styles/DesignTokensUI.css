@@ -187,3 +187,139 @@
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.55; transform: scale(0.92); }
 }
+
+/* ECL AI themes. Classic is the default above. Set by lib/theme.ts. */
+
+/* India: lime-washed walls, sandstone, brass and madder red. */
+html[data-ecl-theme="india"] {
+    --ecl-accent: #8a2f3c;
+    --ecl-accent-strong: #6e2330;
+    --ecl-accent-50: rgba(138, 47, 60, 0.06);
+    --ecl-accent-100: rgba(138, 47, 60, 0.12);
+    --ecl-accent-200: rgba(138, 47, 60, 0.3);
+    --app-background: #f5ecdc;
+    --app-surface: #fcf7ed;
+    --app-surface-hover: #f1e6d0;
+    --app-surface-active: #e9dcc0;
+    --app-floating: #fdf9f0;
+    --table-grid-border: #dccdb2;
+    --background: #f5ecdc;
+    --card: #fcf7ed;
+    --popover: #fdf9f0;
+    --primary: #8a2f3c;
+    --secondary: #efe3cc;
+    --muted: #efe3cc;
+    --muted-foreground: #6b5a4c;
+    --accent: #efe3cc;
+    --border: #dccdb2;
+    --input: #dccdb2;
+    --ring: #b8862f;
+    --sidebar: #efe3cc;
+    --sidebar-primary: #8a2f3c;
+    --sidebar-accent: #e5d6b6;
+    --sidebar-accent-foreground: #8a2f3c;
+    --sidebar-border: #dccdb2;
+    --sidebar-ring: #b8862f;
+    --color-ecl-gold: #b8862f;
+    --color-gray-50: #faf3e4;
+    --color-gray-100: #f1e6d0;
+    --color-gray-200: #dccdb2;
+    --color-gray-300: #cdbb98;
+    --color-gray-500: #6b5a4c;
+}
+/* The jali: a faint square-and-diamond lattice behind the page top only. */
+html[data-ecl-theme="india"] body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 120px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.06;
+    background-image:
+        linear-gradient(45deg, #8a2f3c 1px, transparent 1px),
+        linear-gradient(-45deg, #8a2f3c 1px, transparent 1px);
+    background-size: 24px 24px;
+    -webkit-mask-image: linear-gradient(#000, transparent);
+    mask-image: linear-gradient(#000, transparent);
+}
+
+/* AI: dark, maroon-black, gold signals. lib/theme.ts also adds .dark. */
+html[data-ecl-theme="ai"] {
+    --ecl-accent: #c06a79;
+    --ecl-accent-strong: #d48593;
+    --ecl-accent-50: rgba(192, 106, 121, 0.08);
+    --ecl-accent-100: rgba(192, 106, 121, 0.15);
+    --ecl-accent-200: rgba(192, 106, 121, 0.34);
+    --app-background: #120a0d;
+    --app-surface: #1b1115;
+    --app-surface-hover: #24171c;
+    --app-surface-active: #2e1e24;
+    --app-floating: #20141a;
+    --table-grid-border: #3a262c;
+    --background: #120a0d;
+    --foreground: #f3ece0;
+    --card: #1b1115;
+    --card-foreground: #f3ece0;
+    --popover: #20141a;
+    --popover-foreground: #f3ece0;
+    --primary: #d9b25f;
+    --primary-foreground: #120a0d;
+    --secondary: #24171c;
+    --secondary-foreground: #f3ece0;
+    --muted: #24171c;
+    --muted-foreground: #a8979a;
+    --accent: #24171c;
+    --accent-foreground: #f3ece0;
+    --border: #3a262c;
+    --input: #3a262c;
+    --ring: #d9b25f;
+    --sidebar: #160d11;
+    --sidebar-foreground: #f3ece0;
+    --sidebar-primary: #d9b25f;
+    --sidebar-primary-foreground: #120a0d;
+    --sidebar-accent: #2e1e24;
+    --sidebar-accent-foreground: #f3ece0;
+    --sidebar-border: #3a262c;
+    --sidebar-ring: #d9b25f;
+    --color-ecl-gold: #d9b25f;
+    --color-gray-50: #1b1115;
+    --color-gray-100: #24171c;
+    --color-gray-200: #3a262c;
+    --color-gray-300: #52383f;
+    --color-gray-400: #8d7a7e;
+    --color-gray-500: #a8979a;
+    --color-gray-600: #c4b6b2;
+    --color-gray-700: #ddd1c6;
+    --color-gray-800: #ebe2d4;
+    --color-gray-900: #f3ece0;
+    --color-gray-950: #faf5ea;
+}
+/* The graticule: a 24px measuring grid at 4% opacity behind the canvas. */
+html[data-ecl-theme="ai"] body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.04;
+    background-image: radial-gradient(#d9b25f 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+/* One gold scan line, only while an agent works (class set by agent views). */
+@keyframes ecl-scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+.ecl-scan { position: relative; overflow: hidden; }
+.ecl-scan::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    height: 2px; width: 40%;
+    background: linear-gradient(90deg, transparent, var(--color-ecl-gold), transparent);
+    animation: ecl-scan 1.8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .ecl-scan::after { animation: none; width: 100%; opacity: 0.6; }
+}

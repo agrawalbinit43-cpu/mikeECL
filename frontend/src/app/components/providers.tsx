@@ -1,6 +1,7 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
+import { initEclTheme } from "@/app/lib/theme";
 import { AuthProvider } from "@/app/contexts/AuthContext";
 import { UserProfileProvider } from "@/app/contexts/UserProfileContext";
 import { MfaLoginGate } from "@/app/components/shared/MfaLoginGate";
@@ -11,6 +12,9 @@ import { AppToasts } from "@/app/components/ui/toast";
 
 export function Providers({ children }: { children: React.ReactNode }) {
     useInputModality();
+    useEffect(() => {
+        initEclTheme();
+    }, []);
     return (
         <AuthProvider>
             <UserProfileProvider>
