@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { Workflow } from "../shared/types";
+import { PLAN_COMMAND_ID } from "./planCommand";
 import { workflowSlashCommand } from "./workflowSlashCommands";
 import { LIQUID_GLASS_TRANSLUCENT_CLASS } from "@/app/components/ui/liquid-surface";
 
@@ -53,7 +54,9 @@ export function WorkflowSlashMenu({ workflows, activeIndex, onSelect }: Props) {
                             {trigger}
                         </span>
                         <span className="truncate text-gray-500">
-                            {workflow.metadata.title}
+                            {workflow.id === PLAN_COMMAND_ID
+                                ? workflow.metadata.description
+                                : workflow.metadata.title}
                         </span>
                     </button>
                 );

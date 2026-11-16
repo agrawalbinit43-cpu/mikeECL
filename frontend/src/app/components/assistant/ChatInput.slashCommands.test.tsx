@@ -280,9 +280,9 @@ describe("ChatInput workflow slash commands", () => {
         );
 
         const input = screen.getByRole("combobox");
-        await user.type(input, "/");
+        await user.type(input, "/zz");
 
-        expect(input).toHaveValue("/");
+        expect(input).toHaveValue("/zz");
         expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
         expect(screen.queryByRole("status")).not.toBeInTheDocument();
 
@@ -290,7 +290,7 @@ describe("ChatInput workflow slash commands", () => {
             resolveWorkflows(workflowsWithoutCommands);
         });
 
-        expect(input).toHaveValue("/");
+        expect(input).toHaveValue("/zz");
         expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
         expect(screen.queryByRole("status")).not.toBeInTheDocument();
 
@@ -300,7 +300,7 @@ describe("ChatInput workflow slash commands", () => {
             expect(onSubmit).toHaveBeenCalledWith(
                 expect.objectContaining({
                     role: "user",
-                    content: "/",
+                    content: "/zz",
                     workflow: undefined,
                 }),
             ),
@@ -352,5 +352,32 @@ describe("composer workspace identity", () => {
         await user.type(screen.getByRole("combobox"), "/cont");
         await waitFor(() => expect(listWorkflows).toHaveBeenCalledWith("assistant", "firm-b"));
         expect(screen.queryByText("Contract Intake")).toBeNull();
+    });
+    it("turns on plan mode with /plan and sends the next message in plan mode", async () => {
+        vi.mocked(listWorkflows).mockResolvedValue([]);
+        const onSubmit = vi.fn();
+        const user = userEvent.setup();
+        render(
+            <ChatInput
+                onSubmit={onSubmit}
+                onCancel={vi.fn()}
+                isLoading={false}
+            />,
+        );
+        const input = screen.getByRole("combobox");
+        await user.type(input, "/pla");
+        expect(await screen.findByRole("option", { name: /\/plan/ })).toBeInTheDocument();
+        await user.keyboard("{Enter}");
+        expect(screen.getByText(/Plan mode: plan first/)).toBeInTheDocument();
+        await user.type(input, "Review the SHA");
+        await user.keyboard("{Enter}");
+        await waitFor(() =>
+            expect(onSubmit).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    content: "Review the SHA",
+                    planMode: "plan",
+                }),
+            ),
+        );
     });
 });

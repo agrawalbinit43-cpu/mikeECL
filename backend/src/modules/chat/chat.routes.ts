@@ -1,4 +1,5 @@
 import { BACKEND_REPORTING_OWNER } from "../../lib/reportedUpstreamCodes";
+import { parsePlanMode } from "./engine/planMode";
 import { abortable } from "../../lib/abortable";
 import {
     attachAssistantTurnSse,
@@ -766,10 +767,13 @@ chatRouter.post("/", requireAuth, asyncRoute(async (req, res) => {
                 userEmail,
                 db,
                 write,
-                allowDocumentMutation,
+                allowDocumentMutation:
+                    allowDocumentMutation &&
+                    parsePlanMode(body.plan_mode) !== "plan",
                 workflowStore,
                 includeResearchTools: legalResearchUs,
                 webSearch,
+                planMode: parsePlanMode(body.plan_mode),
                 subagentRuns,
                 subagentDefaults,
                 model: selectedModel,

@@ -1,6 +1,7 @@
 import { BACKEND_REPORTING_OWNER } from "../../../lib/reportedUpstreamCodes";
 import { AppError } from "../../../lib/appError";
 import { teamOrgIdOf } from "../../../lib/personalOrgs";
+import { planModePrompt, type PlanMode } from "./planMode";
 import { webSearchAccountFor, type WebSearchPlan } from "../../../lib/webSearch";
 import { buildGoogleWorkspaceTools } from "../../../lib/integrations/googleWorkspace";
 import {
@@ -313,6 +314,8 @@ export async function runLLMStream(params: {
   includeResearchTools?: boolean;
   /** How this turn may search the web; null or omitted means it may not. */
   webSearch?: WebSearchPlan | null;
+  /** Plan mode: "plan" studies and proposes, "execute" runs the approved plan. */
+  planMode?: PlanMode;
   /** Expose ask_inputs only to clients that can render and answer it. */
   includeAskInputs?: boolean;
   /**
@@ -408,6 +411,7 @@ export async function runLLMStream(params: {
     extraTools,
     includeResearchTools = true,
     webSearch = null,
+    planMode,
     includeAskInputs = true,
     connectorApprovals = false,
     allowDocumentMutation = true,
@@ -519,6 +523,7 @@ export async function runLLMStream(params: {
         ]
       : []),
     ...(subagentRuns ? [delegateSystemPrompt(subagentDefaults)] : []),
+    ...(planModePrompt(planMode) ? [planModePrompt(planMode) as string] : []),
   ].join("\n\n");
   const chatMessages: LlmMessage[] = rawMsgs
     .filter((m) => m.role !== "system")

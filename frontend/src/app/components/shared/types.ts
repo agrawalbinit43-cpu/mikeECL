@@ -408,6 +408,8 @@ export interface Message {
   playbook?: { id: string; title: string };
   model?: string;
   reasoning?: "none" | "low" | "medium" | "high" | "xhigh" | "max";
+  /** "plan" studies and proposes; "execute" runs the approved plan. */
+  planMode?: "plan" | "execute";
   citations?: Citation[];
   citationStatus?: "started" | "partial" | "final";
   events?: AssistantEvent[];

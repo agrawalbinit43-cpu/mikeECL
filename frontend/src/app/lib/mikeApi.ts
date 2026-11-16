@@ -3193,6 +3193,7 @@ export async function streamChat(payload: {
     org_id?: string;
     model?: string;
     reasoning?: Message["reasoning"];
+    plan_mode?: "plan" | "execute";
     ask_inputs_response?: AskInputsResponsePayload;
     signal?: AbortSignal;
 }): Promise<Response> {
@@ -3223,6 +3224,7 @@ export async function streamProjectChat(payload: {
     reasoning?: Message["reasoning"];
     displayed_doc?: { filename: string; document_id: string };
     attached_documents?: { filename: string; document_id: string }[];
+    plan_mode?: "plan" | "execute";
     ask_inputs_response?: AskInputsResponsePayload;
     signal?: AbortSignal;
 }): Promise<Response> {

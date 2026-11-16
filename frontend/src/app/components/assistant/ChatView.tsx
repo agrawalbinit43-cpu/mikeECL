@@ -28,6 +28,8 @@ import {
 } from "lucide-react";
 import { UserMessage } from "./UserMessage";
 import { AssistantMessage } from "./AssistantMessage";
+import { PlanApprovalBar, awaitsPlanApproval } from "./PlanApprovalBar";
+import { assistantHistoryContent } from "@/app/lib/assistantHistoryContent";
 import { ChatInput } from "./ChatInput";
 import { InitialView } from "./InitialView";
 import { QuickActionsModal } from "./QuickActionsModal";
@@ -1221,6 +1223,38 @@ export function AssistantChatColumn({
                                             </div>
                                         ));
                                     })()}
+                                    {!isResponseLoading &&
+                                        canSend &&
+                                        messages.length > 0 &&
+                                        messages[messages.length - 1].role ===
+                                            "assistant" &&
+                                        awaitsPlanApproval(
+                                            assistantHistoryContent(
+                                                messages[messages.length - 1],
+                                            ),
+                                        ) && (
+                                            <PlanApprovalBar
+                                                onApprove={() =>
+                                                    void handleChat({
+                                                        role: "user",
+                                                        content:
+                                                            "Go ahead with the plan.",
+                                                        model: chatModel ?? undefined,
+                                                        reasoning: chatReasoningLevel ?? undefined,
+                                                        planMode: "execute",
+                                                    })
+                                                }
+                                                onRevise={(note) =>
+                                                    void handleChat({
+                                                        role: "user",
+                                                        content: `Change the plan: ${note}\n\nShow me the updated plan. Do not start the work yet.`,
+                                                        model: chatModel ?? undefined,
+                                                        reasoning: chatReasoningLevel ?? undefined,
+                                                        planMode: "plan",
+                                                    })
+                                                }
+                                            />
+                                        )}
                                     <div ref={messagesEndRef} />
                                 </div>
                             </div>

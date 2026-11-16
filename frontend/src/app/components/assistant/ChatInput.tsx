@@ -17,6 +17,7 @@ import {
     Square,
     Waypoints,
     X,
+    ClipboardList,
 } from "lucide-react";
 import { AddDocButton } from "./AddDocButton";
 import { PlaybookPickerModal } from "../playbooks/PlaybookPickerModal";
@@ -30,6 +31,7 @@ import { UploadOverlay } from "./UploadOverlay";
 import { DocumentPill } from "../shared/DocumentPill";
 import { AddDocumentsModal } from "../modals/AddDocumentsModal";
 import { AssistantWorkflowModal } from "./AssistantWorkflowModal";
+import { PLAN_COMMAND, PLAN_COMMAND_ID } from "./planCommand";
 import { WORKFLOW_SLASH_MENU_ID, WorkflowSlashMenu } from "./WorkflowSlashMenu";
 import {
     exactSlashWorkflow,
@@ -281,6 +283,8 @@ function ChatInputForChatImpl(
     );
     const [activeSlashIndex, setActiveSlashIndex] = useState(0);
     const [slashMenuDismissed, setSlashMenuDismissed] = useState(false);
+    // Plan mode: the next message is studied and planned, not answered.
+    const [planMode, setPlanMode] = useState(false);
     const dragDepthRef = useRef(0);
     const localFileInputRef = useRef<HTMLInputElement>(null);
     const settingsSaveRef = useRef<Promise<boolean>>(Promise.resolve(true));
@@ -328,10 +332,11 @@ function ChatInputForChatImpl(
 
     const slashQuery = slashCommandQuery(value);
     const matchingWorkflows = matchingSlashWorkflows(
-        slashWorkflows ?? [],
+        [PLAN_COMMAND, ...(slashWorkflows ?? [])],
         slashQuery,
     );
-    const slashCommandsLoading = slashQuery !== null && slashWorkflows === null;
+    const slashCommandsLoading =
+        slashQuery !== null && slashWorkflows === null && slashQuery !== "/plan";
     const slashMenuOpen =
         !slashMenuDismissed &&
         !selectedWorkflow &&
@@ -655,6 +660,8 @@ function ChatInputForChatImpl(
         setSelectedWorkflow(null);
         setSelectedPlaybook(null);
         setExcerpts([]);
+        const sendInPlanMode = planMode;
+        setPlanMode(false);
 
         onSubmit?.({
             role: "user",
@@ -664,10 +671,21 @@ function ChatInputForChatImpl(
             playbook: selectedPlaybook ?? undefined,
             model,
             reasoning: reasoningLevel,
+            ...(sendInPlanMode ? { planMode: "plan" as const } : {}),
         });
     };
 
     const selectSlashWorkflow = (workflow: Workflow) => {
+        if (workflow.id === PLAN_COMMAND_ID) {
+            setPlanMode(true);
+            setValue((current) => withoutSlashCommand(current));
+            setSlashMenuDismissed(true);
+            if (textareaRef.current) {
+                textareaRef.current.style.height = "auto";
+                textareaRef.current.focus();
+            }
+            return;
+        }
         if (!workflowSlashCommand(workflow)) return;
         setSelectedWorkflow({
             id: workflow.id,
@@ -685,7 +703,10 @@ function ChatInputForChatImpl(
         const query = value.trim();
         if (!composerOpen || slashCommandsLoading) return;
         const slashWorkflow = slashQuery
-            ? exactSlashWorkflow(slashWorkflows ?? [], slashQuery)
+            ? exactSlashWorkflow(
+                  [PLAN_COMMAND, ...(slashWorkflows ?? [])],
+                  slashQuery,
+              )
             : undefined;
         if (slashWorkflow) {
             selectSlashWorkflow(slashWorkflow);
@@ -754,11 +775,29 @@ function ChatInputForChatImpl(
                 >
                     {/* Attached chips */}
                     {(selectedWorkflow ||
+                        planMode ||
                         selectedPlaybook ||
                         attachedDocs.length > 0 ||
                         uploadingFiles.length > 0 ||
                         excerpts.length > 0) && (
                         <div className="flex flex-wrap gap-1.5 px-2 pt-2">
+                            {planMode && (
+                                <div className="inline-flex items-center gap-1 rounded-md border border-ecl-gold/60 bg-[#f6f0e6] py-0.5 pl-2.5 pr-1 text-xs text-ecl-maroon">
+                                    <ClipboardList
+                                        className="h-3 w-3 shrink-0"
+                                        aria-hidden="true"
+                                    />
+                                    <span>Plan mode: plan first, then run</span>
+                                    <button
+                                        type="button"
+                                        aria-label="Turn off plan mode"
+                                        onClick={() => setPlanMode(false)}
+                                        className="ml-0.5 rounded p-0.5 text-ecl-maroon/60 hover:bg-white hover:text-ecl-maroon"
+                                    >
+                                        <X className="h-2.5 w-2.5" />
+                                    </button>
+                                </div>
+                            )}
                             {selectedWorkflow && (
                                 <div className="inline-flex items-center gap-1 pl-2.5 pr-1 py-0.5 rounded-full text-xs bg-blue-600 text-white border border-white/20 shadow">
                                     <button
