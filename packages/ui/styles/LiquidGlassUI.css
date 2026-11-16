@@ -1,34 +1,24 @@
 :root {
-    --liquid-glass-background-flat: #fdfdfe;
+    --liquid-glass-background-flat: #fffdf9;
     --liquid-glass-background-subtle: rgba(255, 255, 255, 0.55);
-    --liquid-glass-background-float: #fdfdfe;
-    --liquid-glass-background-modal: rgba(249, 250, 251, 0.95);
-    --liquid-glass-border-flat: rgba(255, 255, 255, 0.7);
-    --liquid-glass-border-subtle: rgba(255, 255, 255, 0.7);
-    --liquid-glass-border-float: rgba(255, 255, 255, 0.7);
-    --liquid-glass-border-modal: rgba(255, 255, 255, 0.7);
+    --liquid-glass-background-float: #f6f0e6;
+    --liquid-glass-background-modal: #fffefb;
+    --liquid-glass-border-flat: #e8dfd1;
+    --liquid-glass-border-subtle: #e8dfd1;
+    --liquid-glass-border-float: #e8dfd1;
+    --liquid-glass-border-modal: #e8dfd1;
 
     /* Tier 1: broad, relatively flat surfaces such as tables and messages. */
-    --liquid-glass-shadow-flat:
-        0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    --liquid-glass-shadow-flat: none;
 
     /* Tier 2: compact controls that need a soft, tactile bevel. */
-    --liquid-glass-shadow-subtle:
-        0 3px 9px rgba(15, 23, 42, 0.052),
-        inset 0 1px 0 rgba(255, 255, 255, 0.86),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.58);
+    --liquid-glass-shadow-subtle: none;
 
     /* Tier 3: persistent app chrome, using the original AppSidebar depth. */
-    --liquid-glass-shadow-float:
-        0 -1px 6px rgba(15, 23, 42, 0.034),
-        0 4px 9px rgba(15, 23, 42, 0.074),
-        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    --liquid-glass-shadow-float: none;
 
     /* Modal frames sit above every general elevation tier. */
-    --liquid-glass-shadow-modal:
-        0 14px 40px rgba(15, 23, 42, 0.101), 0 5px 14px rgba(15, 23, 42, 0.067),
-        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    --liquid-glass-shadow-modal: 0 8px 24px rgba(42, 18, 22, 0.08);
 
     /* Chat overlays remain translucent because messages pass beneath them. */
     --liquid-glass-translucent-background: rgba(255, 255, 255, 0.6);

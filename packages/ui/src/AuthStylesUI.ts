@@ -1,7 +1,7 @@
 import { LIQUID_GLASS_FLAT_CLASS } from "./LiquidGlassUI";
 
 export const authGlassCardUIClassName =
-    `rounded-2xl p-8 ${LIQUID_GLASS_FLAT_CLASS}`;
+    `rounded-md p-10 ${LIQUID_GLASS_FLAT_CLASS}`;
 
 export const authInputUIClassName =
-    "rounded-lg border border-transparent bg-gray-100 px-3 shadow-none focus-visible:border-gray-200 focus-visible:ring-2 focus-visible:ring-gray-300/45";
+    "h-10 rounded-md border border-[#d6cfc5] bg-[#fffdf9] px-3 shadow-none placeholder:text-[#a69d92] focus-visible:border-ecl-maroon focus-visible:ring-2 focus-visible:ring-ecl-gold/40";

@@ -88,7 +88,7 @@
 }
 
 :root {
-    --radius: 0.625rem;
+    --radius: 0.375rem;
     /* ECL AI accent: maroon on light surfaces. */
     --ecl-accent: #551c27;
     --ecl-accent-strong: #3f1521;
@@ -130,9 +130,9 @@
     --sidebar-primary: #551c27;
     --sidebar-primary-foreground: #f8f2e7;
     --sidebar-accent: #efe6d8;
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+    --sidebar-accent-foreground: #551c27;
+    --sidebar-border: #e8dfd1;
+    --sidebar-ring: #c9a24e;
 }
 
 .dark {

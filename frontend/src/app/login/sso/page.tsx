@@ -73,11 +73,11 @@ export default function SsoLoginPage() {
 
     return (
         <div className="relative flex min-h-dvh items-center justify-center bg-gray-50/80 px-6 py-10">
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 md:top-8">
-                <SiteLogo size="lg" asLink />
-            </div>
             <div className="w-full max-w-md">
                 <div className={authGlassCardUIClassName}>
+                    <div className="mb-8 border-b border-border pb-6">
+                        <SiteLogo size="lg" asLink />
+                    </div>
                     <div className="mb-6">
                         <h1 className="font-serif text-2xl font-medium text-gray-950">
                             SSO Login

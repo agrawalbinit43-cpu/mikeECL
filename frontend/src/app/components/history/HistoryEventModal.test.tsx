@@ -179,8 +179,8 @@ describe("HistoryEventModal", () => {
     const openProject = screen.getByRole("link", { name: "Open project" });
     expect(openDocument.closest("footer")).not.toBeNull();
     expect(openProject.closest("footer")).not.toBeNull();
-    expect(openDocument).toHaveClass("rounded-full");
-    expect(openProject).toHaveClass("rounded-full");
+    expect(openDocument).toHaveClass("rounded-md");
+    expect(openProject).toHaveClass("rounded-md");
     expect(openProject).toHaveAttribute("href", "/projects/project-id");
     await user.click(openDocument);
     expect(await screen.findByTestId("document-preview")).toHaveAttribute(
@@ -190,7 +190,7 @@ describe("HistoryEventModal", () => {
     expect(getDocument).toHaveBeenCalledWith("document-id");
     const back = screen.getByRole("button", { name: "Back" });
     expect(back.closest("footer")).not.toBeNull();
-    expect(back).toHaveClass("rounded-full");
+    expect(back).toHaveClass("rounded-md");
     await user.click(back);
     expect(
       screen.getByRole("heading", { name: "Document edited" }),
@@ -229,7 +229,7 @@ describe("HistoryEventModal", () => {
       expect(screen.queryByText(/database secret/)).toBeNull();
       const retry = screen.getByRole("button", { name: "Try again" });
       expect(retry.closest("footer")).not.toBeNull();
-      expect(retry).toHaveClass("rounded-full");
+      expect(retry).toHaveClass("rounded-md");
       await user.click(retry);
       expect(await screen.findByTestId("document-preview")).toBeVisible();
     },
@@ -357,7 +357,7 @@ describe("private content from audit events", () => {
       );
       const button = screen.getByRole("button", { name: label });
       expect(button.closest("footer")).not.toBeNull();
-      expect(button).toHaveClass("rounded-full");
+      expect(button).toHaveClass("rounded-md");
       expect(screen.queryByRole("link")).toBeNull();
       expect(openOrgPrivateContent).not.toHaveBeenCalled();
       await user.click(button);

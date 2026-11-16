@@ -147,11 +147,11 @@ function ResetPasswordContent() {
                     : "items-start pb-10 pt-32 md:pt-40"
             }`}
         >
-            <div className="absolute top-4 md:top-8 left-1/2 -translate-x-1/2">
-                <SiteLogo size="lg" asLink />
-            </div>
             <div className="w-full max-w-md">
                 <div className={authGlassCardUIClassName}>
+                    <div className="mb-8 border-b border-border pb-6">
+                        <SiteLogo size="lg" asLink />
+                    </div>
                     {!displayedReady ? (
                         <div>
                             <Loader2 className="h-6 w-6 animate-spin text-gray-500" />

@@ -114,7 +114,7 @@ function AssistantGreeting({ username }: { username: string }) {
                             "transform 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 800ms ease-in-out 300ms",
                     }}
                 >
-                    Hi, {username}
+                    {/^(guest|there)$/i.test(username) ? "How can I help?" : `Hi, ${username}`}
                 </h1>
             </div>
         </div>

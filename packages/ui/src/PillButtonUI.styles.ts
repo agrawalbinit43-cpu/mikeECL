@@ -9,10 +9,10 @@ export type PillButtonUITone = "black" | "white" | "blue" | "danger";
 export type PillButtonUISize = "xs" | "icon-xs" | "sm" | "normal";
 
 const toneClasses: Record<PillButtonUITone, string> = {
-    black: "bg-ecl-maroon text-white shadow-[0_3px_9px_rgba(63,21,33,0.14),inset_1px_1px_0_rgba(255,255,255,0.20),inset_-1px_-1px_0_rgba(255,255,255,0.08),inset_-4px_-4px_9px_rgba(42,18,22,0.25)] hover:bg-ecl-maroon-ink disabled:hover:bg-ecl-maroon",
+    black: "bg-ecl-maroon text-white hover:bg-ecl-maroon-ink disabled:hover:bg-ecl-maroon",
     white: `${LIQUID_GLASS_FLAT_CLASS} ${LIQUID_GLASS_HOVER_CLASS} text-gray-700`,
-    blue: "bg-blue-600/90 text-white shadow-[0_3px_9px_rgba(37,99,235,0.10),inset_1px_1px_0_rgba(255,255,255,0.28),inset_-1px_-1px_0_rgba(255,255,255,0.14),inset_-4px_-4px_9px_rgba(29,78,216,0.2)] hover:bg-blue-600 disabled:hover:bg-blue-600/90",
-    danger: "bg-red-600/90 text-white shadow-[0_3px_9px_rgba(127,29,29,0.10),inset_1px_1px_0_rgba(255,255,255,0.22),inset_-1px_-1px_0_rgba(255,255,255,0.12),inset_-4px_-4px_9px_rgba(127,29,29,0.18)] hover:bg-red-600 disabled:hover:bg-red-600/90",
+    blue: "bg-blue-600/90 text-white hover:bg-blue-600 disabled:hover:bg-blue-600/90",
+    danger: "bg-red-600/90 text-white hover:bg-red-600 disabled:hover:bg-red-600/90",
 };
 
 const sizeClasses: Record<PillButtonUISize, string> = {
@@ -42,7 +42,7 @@ export function pillButtonUIClassName({
 }) {
     return twMerge(
         clsx(
-            "inline-flex items-center justify-center gap-1.5 rounded-full font-medium transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100",
+            "inline-flex items-center justify-center gap-1.5 rounded-md font-medium transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecl-gold/60 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100",
             toneClasses[tone],
             sizeClasses[size],
             className,

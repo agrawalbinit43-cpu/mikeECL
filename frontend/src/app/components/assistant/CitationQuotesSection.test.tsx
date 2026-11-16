@@ -154,7 +154,7 @@ describe("CitationQuotesSection", () => {
 
         expect(screen.getByRole("button", { name: "Cite" })).toHaveClass(
             "liquid-glass-flat",
-            "rounded-full",
+            "rounded-md",
         );
     });
 });

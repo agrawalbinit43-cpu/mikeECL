@@ -19,6 +19,7 @@ vi.mock("@/app/hooks/useSelectedModel", () => ({
     useSelectedModel: () => ["claude-sonnet-4-6", vi.fn()],
     useSelectedReasoning: () => ["high", vi.fn()],
 }));
+vi.mock("@/app/hooks/useOllamaModels", () => ({ useOllamaModels: () => [] }));
 vi.mock("@/app/hooks/useConfiguredModels", () => ({
     useConfiguredModels: () => [],
 }));

@@ -23,6 +23,7 @@ vi.mock("@/app/lib/mikeApi", () => ({
 vi.mock("@/app/contexts/UserProfileContext", () => ({
     useUserProfile: vi.fn(),
 }));
+vi.mock("@/app/hooks/useOllamaModels", () => ({ useOllamaModels: () => [] }));
 vi.mock("@/app/hooks/useConfiguredModels", () => ({
     useConfiguredModels: () => [],
 }));
