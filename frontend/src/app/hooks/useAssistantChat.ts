@@ -576,6 +576,7 @@ export function useAssistantChat({
               attached_documents:
                 attachedDocs.length > 0 ? attachedDocs : undefined,
               plan_mode: message.planMode,
+                agent_stage: message.agentStage,
               ask_inputs_response: opts?.askInputsResponse,
               signal: controller.signal,
             })
@@ -587,6 +588,7 @@ export function useAssistantChat({
               model,
               reasoning,
               plan_mode: message.planMode,
+                agent_stage: message.agentStage,
               ask_inputs_response: opts?.askInputsResponse,
               signal: controller.signal,
             });

@@ -31,6 +31,8 @@ import { UploadOverlay } from "./UploadOverlay";
 import { DocumentPill } from "../shared/DocumentPill";
 import { AddDocumentsModal } from "../modals/AddDocumentsModal";
 import { AssistantWorkflowModal } from "./AssistantWorkflowModal";
+import { AgentStageRail } from "./AgentStageRail";
+import { agentStagePayload, findAgent, getAgentRun } from "@/app/lib/agents";
 import { PLAN_COMMAND, PLAN_COMMAND_ID } from "./planCommand";
 import { WORKFLOW_SLASH_MENU_ID, WorkflowSlashMenu } from "./WorkflowSlashMenu";
 import {
@@ -660,6 +662,12 @@ function ChatInputForChatImpl(
         setSelectedWorkflow(null);
         setSelectedPlaybook(null);
         setExcerpts([]);
+        const activeRun = getAgentRun();
+        const activeAgent = activeRun ? findAgent(activeRun.agentId) : undefined;
+        const agentStage =
+            activeRun && activeAgent && activeAgent.stages[activeRun.stage]
+                ? agentStagePayload(activeAgent, activeRun.stage, activeRun.context)
+                : undefined;
         const sendInPlanMode = planMode;
         setPlanMode(false);
 
@@ -672,6 +680,7 @@ function ChatInputForChatImpl(
             model,
             reasoning: reasoningLevel,
             ...(sendInPlanMode ? { planMode: "plan" as const } : {}),
+            ...(agentStage ? { agentStage } : {}),
         });
     };
 
@@ -767,6 +776,7 @@ function ChatInputForChatImpl(
                         onSelect={selectSlashWorkflow}
                     />
                 )}
+                <AgentStageRail />
                 <div
                     className={cn(
                         "rounded-[21px]",

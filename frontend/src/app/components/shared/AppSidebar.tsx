@@ -87,6 +87,8 @@ const NAV_ITEMS = [
     },
     { href: "/workflows", label: "Workflows", icon: WorkflowSkeuoIcon },
     { href: "/playbooks", label: "Playbooks", icon: PlaybookSkeuoIcon },
+    { href: "/agents", label: "Agents", icon: WorkflowSkeuoIcon },
+    { href: "/magic-lab", label: "Magic Lab", icon: PlaybookSkeuoIcon },
 ];
 
 const RECENT_PROJECT_PAGE_SIZE = 10;

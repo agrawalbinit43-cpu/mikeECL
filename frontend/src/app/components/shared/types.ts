@@ -410,6 +410,8 @@ export interface Message {
   reasoning?: "none" | "low" | "medium" | "high" | "xhigh" | "max";
   /** "plan" studies and proposes; "execute" runs the approved plan. */
   planMode?: "plan" | "execute";
+  /** The agent stage this turn runs, if an agent run is active. */
+  agentStage?: import("@/app/lib/agents").AgentStagePayload;
   citations?: Citation[];
   citationStatus?: "started" | "partial" | "final";
   events?: AssistantEvent[];

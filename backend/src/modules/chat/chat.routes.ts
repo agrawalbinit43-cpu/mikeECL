@@ -1,3 +1,4 @@
+import { parseAgentStage } from "./engine/agentStage";
 import { BACKEND_REPORTING_OWNER } from "../../lib/reportedUpstreamCodes";
 import { parsePlanMode } from "./engine/planMode";
 import { abortable } from "../../lib/abortable";
@@ -774,6 +775,7 @@ chatRouter.post("/", requireAuth, asyncRoute(async (req, res) => {
                 includeResearchTools: legalResearchUs,
                 webSearch,
                 planMode: parsePlanMode(body.plan_mode),
+                agentStage: parseAgentStage(body.agent_stage),
                 subagentRuns,
                 subagentDefaults,
                 model: selectedModel,
